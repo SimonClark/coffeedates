@@ -30,6 +30,14 @@ def printPairs(pairs):
 		result = result + "\n"
 	return result
 
+def listContainsOnly(aList, aName):
+	for name in aList:
+		if name != aName:
+			print('listContainsOnly false')
+			return False
+	print('listContainsOnly true')
+	return True
+
 def removeNonAscii(text):
 	return ''.join([i if ord(i) < 128 else ' ' for i in text])
 
@@ -61,10 +69,10 @@ def createDataset():
 	if not os.path.isdir('data/' + datasetName):
 		os.mkdir('data/' + datasetName)
 		with open('data/' + datasetName + '/participants.txt', 'w') as outfile:
-			outfile.write('// List your participant slackIDs (without the @ symbol) in this file, one per line.\r// You can list both name and slack ID to help in keeping the file up-to-date.\r// Only the text found after the last colon is used, ie: "Simon Clark:sclark"\r// Lines starting two slashes are ignored.\r// -------------------------------------------------\r')
+			outfile.write('// List your participant slackIDs (without the @ symbol) in this file, one per line.\r// You can list both name and slack ID to help in keeping the file up-to-date.\r// Only the text found after the last colon is used, ie: "Simon Clark:sclark"\r// For folks who want multiple matches per round, add a repeat count: "* 3"\r// Lines starting two slashes are ignored.\r// -------------------------------------------------\rSimon Clark : siclark\rJen Patil:jpatil\rGreedy Clark : grclark * 2\rcococlark\r// Introvert Clark : noclark')
 		with open('data/' + datasetName + '/matchWeights.json', 'w') as outfile:
 			outfile.write('{}')
-		print("Dataset has been created for %s. Please add participants to the file ./%s/participants.txt" % (datasetName, datasetName))
+		print("Dataset has been created for %s. Please add participants to the file ./data/%s/participants.txt, then run this script again." % (datasetName, datasetName))
 	else:
 		print("Dataset already exists for %s" % (datasetName))
 	exit()
